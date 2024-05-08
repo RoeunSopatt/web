@@ -47,6 +47,12 @@ export const appRoutes: Route[] = [
                 loadChildren: () => import('app/main/dashboard/dashboard.module').then(m => m.DashboardModule),
                 canActivate: [AuthGuard],
             },
+
+            // Product Route
+            {
+                path: 'product',
+                loadChildren: ()=> import('app/main/product/product.main.module').then(m=>m.ProductMainModule),
+            },
             // >>>>>>>>>>>>>>>>> Add Ur Code Here <<<<<<<<<<<<<<<<<<<
 
             // 404 & Catch all
