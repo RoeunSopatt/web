@@ -54,6 +54,14 @@ export const appRoutes: Route[] = [
                 loadChildren: ()=> import('app/main/product/product.main.module').then(m=>m.ProductMainModule),
                 canActivate: [AuthGuard],
             },
+
+            // =============================>> User
+            {
+                path: 'users',
+                loadChildren: () => import('app/main/user/user.module').then(m => m.UserModule),
+                canActivate: [AuthGuard],
+            },
+
             // >>>>>>>>>>>>>>>>> Add Ur Code Here <<<<<<<<<<<<<<<<<<<
 
             // 404 & Catch all
