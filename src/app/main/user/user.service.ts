@@ -57,6 +57,9 @@ export class UserService {
         return this.http.post(this.url + '/admin/users/' + id + '/change-password', data, this.httpOptions);
     }
 
-    // =================== Update password
+    // =================== block user
+    blockUser(id: number = 0): any {
+        return this.http.post(this.url + '/admin/users/block/'+id, this.httpOptions);
+    }
     
 }
