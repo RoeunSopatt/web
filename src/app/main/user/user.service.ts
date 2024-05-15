@@ -49,8 +49,10 @@ export class UserService {
         return this.http.post(this.url + '/admin/users/' + id, data, this.httpOptions);
     }
 
-    // ==================== Update User
-   
+    // ==================== delete User
+    delete(id: number = 0): any {
+        return this.http.delete(this.url + '/admin/users/' + id, this.httpOptions);
+    }
 
     // =================== Update password
     changePassword(id: number = 0, data: object = {}): any {
