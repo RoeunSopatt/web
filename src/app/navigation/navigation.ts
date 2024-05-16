@@ -74,5 +74,13 @@ export const defaultNavigation: NavigationItem[] = [
         icon     : 'mat_solid:shopping_cart',
         link     : '/sales',
     },
+    //===================================>>my-profile
+    {
+        id   : 'profile',
+        title: 'គណនី',
+        type : 'basic',
+        icon : 'mat_outline:person',
+        link : '/my-profile'
+    },
 
 ];
