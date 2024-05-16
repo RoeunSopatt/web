@@ -62,6 +62,13 @@ export const appRoutes: Route[] = [
                 canActivate: [AuthGuard],
             },
 
+            // =============================>> Pos
+            {
+                path: 'pos',
+                loadChildren: () => import('app/main/pos/pos.module').then(m => m.PosModule),
+                canActivate: [AuthGuard],
+            },
+
             // >>>>>>>>>>>>>>>>> Add Ur Code Here <<<<<<<<<<<<<<<<<<<
 
             // 404 & Catch all
