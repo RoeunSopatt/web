@@ -43,7 +43,31 @@ export class DetailsComponent implements OnInit {
     this.dataSource = new MatTableDataSource(this.data);
   }
 
-  
+  print(): void {
+
+    // Display Download UI
+    this.isDownloading = true;
+
+    // Call API for Base64 String
+    this._saleService.print(this.getRow.receipt_number).subscribe((res: any) => {
+
+        // Stop Download UI
+        this.isDownloading = false;
+
+        // Convert Base64 String to PDF
+        const blob = this._saleService.b64toBlob(res.file_base64, 'application/pdf', '');
+
+        // Save PDF to Local Machine (Download Folder)
+        FileSaver.saveAs(blob, 'Invoice-' + this.getRow.receipt_number + '.pdf');
+
+    }, (err: any) => {
+
+        // Stop Download UI
+        this.isDownloading = false;
+
+    });
+
+  }
 
   // =================================>> Convert base64 to blob
   // b64toBlob(b64Data: any, contentType: any, sliceSize: any) {
