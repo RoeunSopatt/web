@@ -66,6 +66,13 @@ export const defaultNavigation: NavigationItem[] = [
         icon     : 'mat_solid:desktop_mac',
         link     : '/pos',
     },
-
+    //===================================>> Sale
+    {
+        id       : 'sale',
+        title    : 'ការលក់',
+        type     : 'basic',
+        icon     : 'mat_solid:shopping_cart',
+        link     : '/sales',
+    },
 
 ];
