@@ -35,21 +35,19 @@
             </div>
         </ng-container>
 
-        <ng-container *ngIf=" !isLoading ">
-            <div *ngIf=" data?.length === 0 "
+        <ng-container>
+            <div *ngIf=" data?.length == 0 && !isLoading "
                 class="flex flex-col justify-center items-center mb-4">
                 <mat-icon class="icon-size-24" svgIcon="toc"></mat-icon>
                 <span class="text-2xl"><span>គ្មានទិន្នន័យ</span></span>
             </div>
         </ng-container>
 
-        <div *ngIf=" data?.length > 0 && !isLoading" class="container-listing-pos-content border rounded-lg overflow-x-auto overflow-y-hidden" >
-
+        <div class="container-listing-pos-content border rounded-lg overflow-x-auto overflow-y-hidden" *ngIf=" data?.length > 0 && !isLoading">
             <div class="cotainer-listing-pos-left">
                 <mat-tab-group>
                     <ng-container *ngFor=" let type of data ">
                         <mat-tab [label]=" type?.name ">
-
                             <div class="custom-container-tab-body" scrollbar>
                                 <div class="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 p-3">
 
@@ -64,12 +62,10 @@
                                     <span *ngIf=" type.products.length == 0 ">គ្មានផលិតផល!!!</span>
                                 </div>
                             </div>
-
                         </mat-tab>
                     </ng-container>
                 </mat-tab-group>
             </div>
-
             <div class="cotainer-listing-pos-right">
                 <div class="cotainer-listing-pos-right-header flex justify-between items-center px-3 mb-6 border-l border-b">
                     <span>អ្នកគិតបញ្ជី៖ <b>{{cashier}}</b></span>
@@ -125,7 +121,13 @@
                             </tbody>
                         </table>
 
-
+                        <!-- <section class="p-2 flex justify-start border-l border-b">
+                            <label class="pl-1">ស្ថានភាព៖ </label>
+                            <mat-radio-group [(ngModel)]="status_id">
+                              <mat-radio-button class="ml-2" value="1"><b style="color: #05c505;">Paid</b></mat-radio-button>
+                              <mat-radio-button class="ml-2" value="2"><b style="color: #fcfc10;">Pending</b></mat-radio-button>
+                            </mat-radio-group>
+                        </section> -->
                         <div class="custom-botton-flat p-2 flex justify-end border-l border-r border-b">
                             <button class="min-w-8 max-w-8 rounded-md bg-blue-400" [disabled]="!canSubmit" mat-flat-button (click)="checkOut()">
                                 <mat-spinner [diameter]=30 *ngIf="isOrderBeingMade"></mat-spinner>
@@ -133,7 +135,6 @@
                             </button>
                         </div>
                     </div>
-
                     <ng-container>
                         <div *ngIf=" cart?.length == 0 " class="flex flex-col justify-center items-center mt-10">
                             <mat-icon class="icon-size-24" svgIcon="toc"></mat-icon>
@@ -143,7 +144,5 @@
                 </div>
             </div>
         </div>
-
     </div>
-
 </div>

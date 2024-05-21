@@ -8,7 +8,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 // ==========================================================>> Custom Library
 import { SnackbarService } from 'app/shared/services/snackbar.service';
 import { ProductsService } from '../product.service';
-// import { ProductTypeService } from '../../type/product-type.service';
+import { ProductTypeService } from '../../type/product-type.service';
 import { environment as env } from 'environments/environment';
 
 @Component({
@@ -29,7 +29,7 @@ export class CreateComponent implements OnInit {
     private _dialogRef: MatDialogRef<CreateComponent>,
     private _formBuilder: UntypedFormBuilder,
     private _productsService: ProductsService,
-    // private _productsTypeService: ProductTypeService,
+    private _productsTypeService: ProductTypeService,
     private _snackBar: SnackbarService
   ) {
 
@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
 
     // Call API for getting product type tobe use in dropdown selection
-    // this.getProductType();
+    this.getProductType();
 
     // Build form
     this.formBuilder();
@@ -119,11 +119,11 @@ export class CreateComponent implements OnInit {
     );
   }
 
-//   getProductType(): void {
-//     this._productsTypeService.get().subscribe(
-//       (res: any) => {
-//       this.types = res;
-//     },
-//   );
-//   }
+  getProductType(): void {
+    this._productsTypeService.get().subscribe(
+      (res: any) => {
+      this.types = res;
+    },
+  );
+  }
 }

@@ -13,7 +13,6 @@ export class ProductItemComponent implements OnInit {
 
   @Input() data: any = null; //Get Data from Parent
   @Output() result = new EventEmitter;  //Send data to Parent
-
   public FILE_PUBLIC_BASE_URL: string = env.FILE_PUBLIC_BASE_URL;
   constructor() { }
 
@@ -21,7 +20,6 @@ export class ProductItemComponent implements OnInit {
   }
 
   onOutput() {
-
     console.log(this.data);
     this.result.emit(this.data);
   }

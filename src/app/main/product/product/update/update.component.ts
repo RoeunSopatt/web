@@ -39,7 +39,7 @@ export class UpdateDialogComponent implements OnInit {
   ngOnInit(): void {
     
     // Call API for getting product type tobe use in dropdown selection
-    // this.getProductType();
+    this.getProductType();
 
     // Build form 
     this.formBuilder();
@@ -105,10 +105,11 @@ export class UpdateDialogComponent implements OnInit {
     );
   }
 
-//   getProductType(): void {
-//     this._service.getProductType().subscribe(
-//       (res: any) => {
-//       this.types = res;
-//     },
-//   );
+  getProductType(): void {
+    this._service.getProductType().subscribe(
+      (res: any) => {
+      this.types = res;
+    },
+  );
   }
+}

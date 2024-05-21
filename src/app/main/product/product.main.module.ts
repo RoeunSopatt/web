@@ -5,7 +5,7 @@ import { MatTableModule } from '@angular/material/table';
 import { ScrollbarModule } from 'helpers/directives/scrollbar';
 
 // ==========================================================>> Custom Library
-import { ProductModule } from 'app/main/product/product.module';
+import { ProductModule } from 'app/main/product/product/product.module';
 import { ProductTypeModule } from 'app/main/product/type/product-type.module';
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
         children: [
             {
                 path: 'all',
-                loadChildren: () => import('app/main/product/product.module').then(m => m.ProductModule)
+                loadChildren: () => import('app/main/product/product/product.module').then(m => m.ProductModule)
             },
             {
                 path: 'types',
