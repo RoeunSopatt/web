@@ -42,9 +42,9 @@ export class ChangePasswordComponent implements OnInit {
   ngOnInit(): void {
     this.changePasswordForm = this._formBuilder.group({
       old_password:     ['', [Validators.required, Validators.minLength(6),Validators.maxLength(20)]],
-      password:         ['', [Validators.required, Validators.minLength(6),Validators.maxLength(20)]],
+      new_password:         ['', [Validators.required, Validators.minLength(6),Validators.maxLength(20)]],
       confirm_password: ['', [Validators.required, Validators.minLength(6),Validators.maxLength(20)]]
-    });
+    },);
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -67,8 +67,10 @@ export class ChangePasswordComponent implements OnInit {
     // Send the request to the server
     this.loadingService.show();
     this.saving = true;
+    console.log(this.changePasswordForm.value);
     this._serviceMyProfile.updatePassword(this.changePasswordForm.value).subscribe(
       (res: any) => {
+        console.log(this.changePasswordForm.value);
         this.loadingService.hide();
         this.saving = false;
         this.changePasswordForm.enable();
