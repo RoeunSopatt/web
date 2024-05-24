@@ -82,6 +82,8 @@ export class POSComponent implements OnInit {
 
   addToCart(incomingItem: any, qty = 0) {
 
+    // console.log(incomingItem);
+
     let isExisting: boolean = false;
 
     let item: any = {
@@ -97,12 +99,16 @@ export class POSComponent implements OnInit {
       let j = 0;
       //Loop inside the cart to find existing item;
       this.cart.forEach(cartItem => {
+
         //Found the existing item (compared by incoming id)
         if (cartItem['id'] == incomingItem.id) {
+
           isExisting = true;
           this.cart[j]['qty'] = parseInt(cartItem['qty']) + qty; //Update QTY: the existing qty + incoming qty
           this.cart[j]['temp_qty'] = parseInt(cartItem['qty']);
+
         }
+
         j++;
       })
 
@@ -133,6 +139,7 @@ export class POSComponent implements OnInit {
 
   // ================================>> Sub value
   blur(event: any, index: number = -1) {
+
 
     const tempQty = this.cart[index]['qty'];
     if (event.target.value == 0) {
@@ -183,8 +190,7 @@ export class POSComponent implements OnInit {
 
     // Convert variable cart to be a json string
     let data = {
-      cart: JSON.stringify(cart),
-       status_id: this.status_id
+        cart: JSON.stringify(cart)
     }
 
     this.isOrderBeingMade = true; // Update spinner in UI

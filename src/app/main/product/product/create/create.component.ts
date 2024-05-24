@@ -1,7 +1,7 @@
 // ==========================================================>> Core Library
 import { Component, OnInit, Inject} from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
+import { Router } from '@angular/router';
 // ==========================================================>> Third Party Library
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
@@ -24,21 +24,28 @@ export class CreateComponent implements OnInit {
   public data: any;
   public srcImageFileUrl: string = 'assets/icons/icon-img.png';
   public types: any = [];//Product Type
+
+
+
   constructor(
     @Inject(MAT_DIALOG_DATA) public dialogData: any,
     private _dialogRef: MatDialogRef<CreateComponent>,
     private _formBuilder: UntypedFormBuilder,
     private _productsService: ProductsService,
     private _productsTypeService: ProductTypeService,
-    private _snackBar: SnackbarService
+    private _snackBar: SnackbarService,
+    private _router: Router
   ) {
 
     // Make sure that user can't click anyarea to close the dialog
-    _dialogRef.disableClose = true;
+      _dialogRef.disableClose = true;
+
 
   }
 
   ngOnInit(): void {
+    
+    
 
     // Call API for getting product type tobe use in dropdown selection
     this.getProductType();
@@ -48,7 +55,10 @@ export class CreateComponent implements OnInit {
 
     // Mapping File url of image
     this.srcImageFileUrl = env.FILE_PUBLIC_BASE_URL + this.dialogData.image;
+
+    
   }
+
 
   formBuilder(): void {
     this.form = this._formBuilder.group({
@@ -58,6 +68,7 @@ export class CreateComponent implements OnInit {
       unit_price: ['', Validators.required],
       image: [],
     });
+    
   }
 
   // Getting base64 string after file is selected
@@ -67,8 +78,10 @@ export class CreateComponent implements OnInit {
     this.form.get('image').setValue($event);
   }
 
+  
   // Sent Data to API
   submit(): void {
+
     // Return if the form is invalid
     if (this.form.invalid) {
       return;
@@ -89,6 +102,7 @@ export class CreateComponent implements OnInit {
 
         // Close dialog and return data to listing component
         this._dialogRef.close(res.data);
+        
       },
       (err: any) => {
 
@@ -103,7 +117,7 @@ export class CreateComponent implements OnInit {
         let messages: any[] = [];
         let text: string = '';
         if (errors.length > 0) {
-          errors.forEach((v: any) => {
+            errors.forEach((v: any) => {
             messages.push(v.message)
           });
           if (messages.length > 1) {
@@ -118,6 +132,18 @@ export class CreateComponent implements OnInit {
       }
     );
   }
+
+  cancel(): void{
+    this._dialogRef.close();
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+    const currentUrl = this._router.url;
+    this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+    this._router.navigate([currentUrl]);
+  });
+
+
+  }
+
 
   getProductType(): void {
     this._productsTypeService.get().subscribe(

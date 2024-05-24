@@ -85,6 +85,7 @@ export class ListingComponent implements OnInit {
                 this.total = res.total;
                 this.page = res.current_page;
                 this.limit = res.per_page;
+                console.log(this.dataSource);
             },
             (err: any) => {
                 this.isLoading = false;
@@ -172,13 +173,14 @@ export class ListingComponent implements OnInit {
     }
 
     update( i: number = 0, data: any = null ): void {
-      const dialogConfig = new MatDialogConfig();
-      dialogConfig.data = data;
-      dialogConfig.width = '500px';
-      const dialogRef = this._dialog.open(UpdateDialogComponent, dialogConfig);
-      dialogRef.afterClosed().subscribe( (res: any) => {
-        this.data[i] = res;
-        this.dataSource = new MatTableDataSource(this.data);
+        const dialogConfig = new MatDialogConfig();
+        dialogConfig.data = data;
+        dialogConfig.width = '500px';
+        const dialogRef = this._dialog.open(UpdateDialogComponent, dialogConfig);
+        dialogRef.afterClosed().subscribe( (res: any) => {
+            this.data[i] = res;
+            console.log("Image: ",res);
+            this.dataSource = new MatTableDataSource(this.data);
       });
     }
 
@@ -189,4 +191,5 @@ export class ListingComponent implements OnInit {
       },
     );
     }
+    
 }

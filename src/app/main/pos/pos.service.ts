@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 // ==========================================================>> Custom Library
-
 import { environment as env } from 'environments/environment';
 
 @Injectable({

@@ -64,7 +64,7 @@
         <mat-icon *ngIf="!form.disabled" class="icon-size-6 text-white" svgIcon="mat_solid:save"></mat-icon>
         <mat-progress-spinner *ngIf="form.disabled" [diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
     </button>
-    <button class="min-w-8 max-w-8 rounded-md" mat-flat-button [mat-dialog-close]="false" color="warn">
+    <button class="min-w-8 max-w-8 rounded-md" mat-flat-button [mat-dialog-close]="false" color="warn" (click)="cancel()" >
         <mat-icon class="icon-size-6 text-white" [svgIcon]="'heroicons_solid:x'"></mat-icon>
     </button>
 </mat-dialog-actions>

@@ -1,6 +1,8 @@
 // ==========================================================>> Core Library
 import { Component, Inject, OnInit } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Location } from '@angular/common';
+import { ActivatedRoute, Router } from '@angular/router';
 
 // ==========================================================>> Third Party Library
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -9,6 +11,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { SnackbarService } from 'app/shared/services/snackbar.service';
 import { ProductsService } from '../product.service';
 import { environment as env } from 'environments/environment';
+
 
 
 @Component({
@@ -22,13 +25,18 @@ export class UpdateDialogComponent implements OnInit {
   public isSaving: boolean = false;
   public srcImageFileUrl: string = 'assets/icons/icon-img.png';
   public types: any = []; //Product Type
-
+  private readonly _router: Router;
+  private _route: ActivatedRoute;
+  public originalData: any
   constructor(
-    @Inject(MAT_DIALOG_DATA) public dialogData: any,
+    @Inject(MAT_DIALOG_DATA) public dialogData: any, 
     private _dialogRef: MatDialogRef<UpdateDialogComponent>,
     private _formBuilder: UntypedFormBuilder,
     private _service: ProductsService,
-    private _snackBar: SnackbarService
+    private _snackBar: SnackbarService,
+    private router: Router,
+    private location: Location
+    
   ) {
 
     // Make sure that user can't click anyarea to close the dialog
@@ -37,7 +45,8 @@ export class UpdateDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    
+   this.originalData = this.dialogData;
+   console.log(this.originalData);
     // Call API for getting product type tobe use in dropdown selection
     this.getProductType();
 
@@ -46,8 +55,9 @@ export class UpdateDialogComponent implements OnInit {
 
     // Mapping File url of image
     this.srcImageFileUrl = env.FILE_PUBLIC_BASE_URL + this.dialogData.image;
-
+    
   }
+  
 
 
   formBuilder(): void {
@@ -90,6 +100,7 @@ export class UpdateDialogComponent implements OnInit {
 
         // Close dialog and return data to listing component
         this._dialogRef.close(res.product);
+        
       },
       (err: any) => {
 
@@ -104,6 +115,17 @@ export class UpdateDialogComponent implements OnInit {
       }
     );
   }
+// Modify the click event handler for the "X" button to back to previous page
+    onCancel(): void {
+
+      this._dialogRef.close();
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      const currentUrl = this.router.url;
+      this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this.router.navigate([currentUrl]);
+    });
+
+    }
 
   getProductType(): void {
     this._service.getProductType().subscribe(

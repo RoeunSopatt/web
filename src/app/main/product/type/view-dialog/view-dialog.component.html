@@ -11,6 +11,7 @@
                 <input id="name" matInput [formControlName]="'name'" (keydown.enter)="save()">
 
             </mat-form-field>
+            
         </div>
     </form>
 </mat-dialog-content>
@@ -22,7 +23,7 @@
         <mat-progress-spinner *ngIf=" isSaving"[diameter]="24" [mode]="'indeterminate'"></mat-progress-spinner>
     </button>
 
-    <button class="min-w-8 max-w-8 rounded-md" mat-flat-button [mat-dialog-close]="false" color="warn">
+    <button class="min-w-8 max-w-8 rounded-md mr-2" mat-flat-button color="warn" (click)="onCancel()">
         <mat-icon class="icon-size-6 text-white" [svgIcon]="'heroicons_solid:x'"></mat-icon>
     </button>
     

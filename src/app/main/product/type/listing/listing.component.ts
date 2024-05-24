@@ -47,9 +47,10 @@ export class ListingComponent implements OnInit {
 
       //Mapping Response to Data
       this.data       = res;
-      // console.log(this.data.length);
+      console.log('type', res);
+       console.log(this.data);
       this.dataSource = new MatTableDataSource(res);
-
+      console.log(this.dataSource);
     }, (err: any) => {
       //Hide Loading UI
       this.isLoading = false ;
@@ -59,15 +60,16 @@ export class ListingComponent implements OnInit {
     });
   }
   
-  view( i:number = 0, data:any = null ){
-
+  view( i:number = 1, data:any = null ){
+   // console.log(data);
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = data;
     dialogConfig.width = '500px';
     const dialogRef = this._dialog.open(ViewDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe( (res: any) => {
-
+      console.log('list: ',res);
       this.data[i] = res;
+
       this.dataSource = new MatTableDataSource(this.data) 
 
     });
@@ -93,7 +95,7 @@ export class ListingComponent implements OnInit {
     const dialogRef = this._dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this._typeService.delete(id).subscribe((res: any) => {
+          this._typeService.delete(id).subscribe((res: any) => {
           this._snackBarService.openSnackBar(res.message, '');
           
           this.data.splice(i, 1);
