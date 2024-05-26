@@ -14,7 +14,7 @@ const productRoutes: Routes = [
         children: [
             {
                 path: 'all',
-                loadChildren: () => import('app/main/product/product/product.module').then(m => m.ProductsModule)
+                loadChildren: () => import('app/main/product/product/product.module').then(m => m.ProductModule)
             }
         ]
     },
@@ -25,10 +25,10 @@ const productRoutes: Routes = [
     imports: [
         RouterModule.forChild(productRoutes),
         MatTableModule,
-        ProductsModule,
+        ProductModule,
     ],
     exports: [
-        ProductsModule
+        ProductModule
     ]
 })
 export class ProductModule{}
